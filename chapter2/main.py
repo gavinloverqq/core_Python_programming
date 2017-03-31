@@ -32,3 +32,16 @@ print aDict.keys()
 for key in aDict:
     print key, aDict[key]
 
+# list comprehensions
+squared = [x ** 2 for x in range(4)]
+print squared
+
+sqdEvens = [x ** 2 for x in range(10) if not x % 2]
+print sqdEvens
+
+# files
+fileName = './log.txt'
+fobj = open(fileName, 'r')
+for eachLine in fobj:
+    print eachLine,
+fobj.close()
