@@ -45,3 +45,14 @@ fobj = open(fileName, 'r')
 for eachLine in fobj:
     print eachLine,
 fobj.close()
+
+# functions
+# call by value or call by reference ?
+def addMe2Me(x):
+    x += x
+    return x
+
+x = 5
+print addMe2Me(x)
+print x
+
