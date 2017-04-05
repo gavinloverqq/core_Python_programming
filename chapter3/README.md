@@ -1,0 +1,1 @@
+1._xxx Do not import with 'from module import *'
