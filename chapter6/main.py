@@ -147,3 +147,48 @@ print aTuple[2][1]
 aTuple[2][1] = ['ggg', 444]
 print aTuple
 
+# 单元素元祖需要加括号，圆括号被重载
+t = ('sss')
+print t
+print type(t)
+t = ('xxx',)
+print t
+print type(t)
+
+
+
+
+print '*' * 100
+# 深拷贝 浅拷贝
+# list 默认拷贝就是浅拷贝，以下几种：完全切片操作， 利用工厂函数如list（）， 使用copy模块的copy函数
+# 值改变了savings，因为savings是列表，浅拷贝的，而name是str，只能深拷贝
+person = ['name', ['savings', 100.00]]
+hubby = person
+# hubby = person[:]
+wifey = list(person)
+print [id(x) for x in person, hubby, wifey]
+hubby[0] = 'joe'
+wifey[0] = 'jane'
+print hubby, wifey
+hubby[1][1] = 50.00
+print hubby, wifey
+print [id(x) for x in hubby]
+print [id(x) for x in wifey]
+
+
+print '*' * 100
+# 都深拷贝 使用deepcopy函数
+import copy
+
+person = ['name', ['savings', 100.00]]
+hubby = copy.deepcopy(person)
+wifey = person
+# wifey = copy.deepcopy(person)
+print [id(x) for x in person, hubby, wifey]
+hubby[0] = 'joe'
+wifey[0] = 'jane'
+print hubby, wifey
+hubby[1][1] = 50.00
+print hubby, wifey
+print [id(x) for x in hubby]
+print [id(x) for x in wifey]
