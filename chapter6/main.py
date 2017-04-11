@@ -102,3 +102,48 @@ print '''hhhhhhhhhh
 jjjj
 
 sdfsdf'''
+
+
+# unicode
+ucode = u'hello'
+print ucode
+
+
+# list
+aList = [1, 2, 3, 4, 'ssd', 3.14]
+print aList
+aList.remove(4)
+print aList
+del aList[4]
+print aList
+
+# 操作符两边使用了不同的类型
+aList = [1, 2, 3]
+# aList + '3'
+aList.append('3')
+
+aList = [x for x in range(10)]
+print sum(aList)
+
+# list() tuple()
+aList = ['xxx', 'time', 93]
+aTuple = tuple(aList)
+print aList, aTuple
+print aList == aTuple
+annotherList = list(aTuple)
+print aList == annotherList
+print aList is annotherList
+
+
+print aList
+print aList.pop()
+
+aTuple = (123, 345, ['dsf', 34])
+
+
+# 元祖没有那么不可变
+aTuple = (123, 341, ['123', 324, 'ddd'])
+print aTuple[2][1]
+aTuple[2][1] = ['ggg', 444]
+print aTuple
+
