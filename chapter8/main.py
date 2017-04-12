@@ -70,3 +70,36 @@ while a > 1:
     a -= 1
 else:
     print 'mmm'
+
+# 迭代器
+aTuple = (123, 'sss', 3.12)
+i = iter(aTuple)
+print i
+print i.next()
+
+
+# 列表解析
+print map(lambda x: x**2, range(6))
+print [x ** 2 for x in range(6)]
+aList = [x for x in range(30)]
+print filter(lambda x: x % 2, aList)
+print [x for x in aList if x % 2]
+
+# 计算单词个数
+f = open('text.data', 'r')
+print len([word for line in f for word in line.split()])
+
+import os
+print os.stat('text.data').st_size
+
+f.seek(0)
+print sum([len(word) for line in f for word in line.split()])
+
+f.seek(0)
+print sum(len(word) for line in f for word in line.split())
+f.close()
+
+print max(len(s.strip()) for s in open('text.data', 'r'))
+
+
+
