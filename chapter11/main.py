@@ -207,3 +207,140 @@ def foo():
 print is_this_global
 foo()
 print is_this_global
+
+# 闭包 本质上是保存一段代码执行的环境
+def counter(startat=0):
+    count = [startat]
+    def incr():
+        count[0] += 1
+        return count[0]
+    return incr
+# 看起来和实例化counter对象并执行这个实例很相似
+count = counter(10)
+print count()
+print count()
+count2 = counter(11111)
+print count2()
+print count2()
+
+# 闭包与装饰器的例子
+print '*' * 100
+from time import time
+
+
+def logged(when):
+
+    def log(f, *args, **kargs):
+        print '''Called:
+    functions: %s
+    args: %r
+    kargs: %r''' % (f, args, kargs)
+
+
+    def pre_logged(f):
+
+        def wrapper(*args, **kargs):
+            log(f, *args, **kargs)
+            return f(*args, **kargs)
+
+        return wrapper
+
+
+    def post_logged(f):
+
+        def wrapped(*args, **kwargs):
+            now = time()
+            try:
+                return f(*args, **kwargs)
+            finally:
+                log(f, *args, **kwargs)
+                print "    time delta: %s" % (time() - now)
+
+        return wrapped
+
+    try:
+        return {'pre': pre_logged, 'post': post_logged}[when]
+    except KeyError, e:
+        raise ValueError(e), 'must be "pre" or "post" '
+
+
+@logged("pre")
+def hello(name):
+    print "hello,", name
+
+
+hello("world!")
+
+
+# lambda作用域
+x = 10
+def foo():
+    y = 5
+    bar = lambda y=y: x +y
+    print bar()
+    y = 8
+    print bar()
+
+foo()
+
+def foo():
+    y = 5
+    bar = lambda z: x +z
+    print bar(y)
+    y = 8
+    print bar(y)
+
+foo()
+
+def foo():
+    y = 5
+    bar = lambda y: x +y
+    print bar(y)
+    y = 8
+    print bar(y)
+
+foo()
+
+# 作用域 和 名称空间
+j, k = 1, 2
+
+def proc1():
+    j, k = 3, 4
+    print j, k
+    k = 5
+
+def proc2():
+    j = 6
+    proc1()
+    print j, k
+
+k = 7
+proc1()
+print j, k
+j = 8
+proc2()
+print j, k
+
+
+# 生成器
+def simpleGen():
+    yield 1
+    yield 'xxxxxxxxxxx'
+
+myG = simpleGen()
+print myG.next()
+print myG.next()
+# print myG.next()  # StopIteration
+
+for x in simpleGen():
+    print x
+
+# print random.randint(12, 20)  #生成的随机数n: 12 <= n <= 20
+def randGen(aList):
+    while len(aList) > 0:
+        yield aList.pop(randint(0, len(aList) - 1))
+
+for x in randGen(['ad', 'dgg', 'xxx', 1233]):
+    print x
+
+
